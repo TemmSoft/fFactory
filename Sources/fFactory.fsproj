@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Algorithms\QueensTaks.fs" />
     <Compile Include="Library.fs" />
     <Compile Include="PatternMatching.fs" />
   </ItemGroup>

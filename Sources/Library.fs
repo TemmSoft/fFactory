@@ -6,5 +6,7 @@ module Say =
         printfn "Hello %s" name
 
     let a = 12
+    let b = "gggoo"
+
 
     

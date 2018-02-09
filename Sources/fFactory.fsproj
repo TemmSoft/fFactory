@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Algorithms\QueensTaks.fs" />
+    <Compile Include="Algorithms\ChessQuize\ArrayBasedSolution.fs" />
+    <Compile Include="Algorithms\ChessQuize\ChessPieceMoves.fs" />
     <Compile Include="Library.fs" />
     <Compile Include="PatternMatching.fs" />
   </ItemGroup>

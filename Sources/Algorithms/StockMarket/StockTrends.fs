@@ -1,0 +1,40 @@
+﻿module StockTrends
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Stock trend queezes
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+open System
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// 1. Find the best buy-sell interval
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let bestSell l =
+    let mutable res = (0,0)
+    let mutable min = Int32.MaxValue
+    l |> List.iter (fun x -> match x with 
+                               | x when x < min -> min <- x 
+                               | x when (x - min) > (snd res) - (fst res) -> res <- (min, x) 
+                               | _ -> ())
+    res
+let bsRes = [6; 9; 18; 3; 11; 4; 2; 8; 0; 15; 7] |> bestSell;;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// 2. Find the highest possible profit on whole interval. 
+//    It's not allowed to buy several times before one sell and vice versa. One purchase -> one sell and the same again...
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let maxProfit lst =
+    let mutable min = Int32.MaxValue
+    let mutable res = (0,0)
+    lst |> List.iter (fun x -> match x with 
+                               | x when x < min -> min <- x 
+                               | h when (h - min) > (snd res) - (fst res) -> res <- (min, h) 
+                               | _ -> ())
+    res
+let mpRes = [18; 3; 11; 4; 2; 8; 0; 15; 7] |> maxProfit;;

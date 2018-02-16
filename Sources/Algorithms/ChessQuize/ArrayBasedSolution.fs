@@ -1,19 +1,29 @@
 ﻿module QueensTaks
 
 open Microsoft.FSharp.Collections
+open System
 
-let inline (>=.<) a (b, c) = a >= b && a < c
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Range condition operators
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let inline (>=.<) a (b,c) = a >= b && a < c
 let inline (>.<) a (b,c) = a > b && a < c
  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let setBishop square board =
+//
+// Functions defining chess pieces threatening trajectories
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let bishopThreat square board =
     let (cols,rows) = (Array2D.length1 board, Array2D.length2 board)
     let markDiagonal f r incr =
         let rec markSquare x y yInc = if x < cols && y >=.< (0,rows) then board.[x,y] <- true; markSquare (x+1) (y+yInc) yInc
         match (r - incr * f) with
         |  b when b >= rows -> markSquare (b-rows+1) (rows-1) incr
-        |  b1 when b1 < 0 -> markSquare -b1 0 incr
-        |  b2 -> markSquare 0 b2 incr
+        |  b when b < 0 -> markSquare -b 0 incr
+        |  b -> markSquare 0 b incr
     match square with 
     | (file, rank) when file >=.< (0, cols) && rank >=.< (0, rows) ->
         markDiagonal file rank 1
@@ -21,7 +31,7 @@ let setBishop square board =
     | (file, rank) -> failwith (sprintf """The square [%i,%i] is out of board!""" file rank)
     board
 
-let setRook square board = 
+let rookThreat square board = 
     let (cols,rows) = (Array2D.length1 board, Array2D.length2 board)
     match square with
     | (file, rank) when file >=.< (0, cols) && rank >=.< (0, rows) ->
@@ -30,11 +40,55 @@ let setRook square board =
     | (file, rank) -> failwith (sprintf """The square [%i,%i] is out of board!""" file rank)
     board
 
-let setQueen square board = 
-    //TODO: try to use real composition
-    board |> setRook square |> setBishop square 
+let queenThreat square board = 
+    board |> (bishopThreat square >> rookThreat square)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+type accRes = { mutable resList: (int*int) list list; mutable maxLength: int; }
+let Res = { resList= [[(0,0)];[(0,0)]]; maxLength = 0; }
+let Board = Array2D.create 8 8 false
+
+let rec tryPosition lst row threatF board = 
+    match row with
+    | _ when row < 0 || row > Array2D.length2 board -> failwith (sprintf """ The rank [%i] if out of range bounds!""" row)
+    | _ when row = Array2D.length2 board -> 
+        match List.length lst with
+        | l when l > Res.maxLength -> Res.resList <- [lst]; Res.maxLength <- lst.Length
+        | l when l = Res.maxLength -> Res.resList <- lst::Res.resList
+        | _ -> ()
+    | _ -> 
+        for col in 0..(Array2D.length1 board - 1) do
+            match board.[col,row] with
+            | b when b = true -> tryPosition lst (row+1) treatF board
+            | b when b = false -> (Array2D.copy board) // |> threatF (col,row) //|> tryPosition ((col,row)::lst) (i+1) threatF
+        ()
+
+//tryPosition [] 0 queenThreat Board
+
+
+
+let f lst =
+    let mutable min = 0
+    let mutable res = (0,0)
+    let f = function
+        | h when h < min -> min <- h
+        | h when (h - min) > (snd res) - (fst res) -> res <- (min, h)
+        | _ -> ()
+    lst |> List.iter f
+    res
+let a = [3; 11; 4; 2; 8; 0; 15; 7] |> f;;
+
+
+let f lst =
+    let mutable min = 0
+    let mutable res = (0,0)
+    let f = function
+        | h when h < min -> min <- h
+        | h when (h - min) > (snd res) - (fst res) -> res <- (min, h)
+        | _ -> ()
+    lst |> List.iter f
+    res
+let a = [3; 11; 4; 2; 8; 0; 15; 7] |> f;;
 
 
 

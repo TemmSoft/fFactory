@@ -1,4 +1,4 @@
-﻿module StockTrends
+﻿module fFactory.StockTrends 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -13,15 +13,13 @@ open System
 // 1. Find the best buy-sell interval
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let bestSell l =
+let bestSell lst =
     let mutable res = (0,0)
     let mutable min = Int32.MaxValue
-    l |> List.iter (fun x -> match x with 
-                               | x when x < min -> min <- x 
-                               | x when (x - min) > (snd res) - (fst res) -> res <- (min, x) 
-                               | _ -> ())
+    lst |> List.iter (function | x when x < min -> min <- x | x when (x - min) > (snd res) - (fst res) -> res <- (min, x) | _ -> ())
     res
-let bsRes = [6; 9; 18; 3; 11; 4; 2; 8; 0; 15; 7] |> bestSell;;
+
+[6; 1; 18; 3; 11; 4; 2; 20;8; 0; 15; 7] |> bestSell;;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -29,12 +27,34 @@ let bsRes = [6; 9; 18; 3; 11; 4; 2; 8; 0; 15; 7] |> bestSell;;
 //    It's not allowed to buy several times before one sell and vice versa. One purchase -> one sell and the same again...
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let maxProfit lst =
-    let mutable min = Int32.MaxValue
-    let mutable res = (0,0)
-    lst |> List.iter (fun x -> match x with 
-                               | x when x < min -> min <- x 
-                               | h when (h - min) > (snd res) - (fst res) -> res <- (min, h) 
-                               | _ -> ())
-    res
-let mpRes = [18; 3; 11; 4; 2; 8; 0; 15; 7] |> maxProfit;;
+let rec f prev min l = match l with 
+                        | h::t when h >= prev -> f h min t
+                        | h::t -> (prev - min) + f h h t
+                        | [] -> 0
+let maxProfitTwo = function h::t -> f h h t | [] -> 0
+
+[18; 3; 11; 10; 12; 6; 4; 7; 2; 8; 0; 15; 7] |> maxProfitTwo;;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let maxProfitOne lst =
+    let mutable prev = List.head lst
+    let mutable min = prev
+    [for x in lst do yield (match x with 
+                            | x when x >= prev -> prev <- x ; 0 
+                            | x when x < prev -> let a = prev - min;  
+                                                 min <- x; prev <- x; a)] |> List.filter (fun x -> x > 0) |> List.fold (fun acc x -> acc + x) 0
+
+[18; 3; 11; 10; 12; 6; 4; 2; 8; 0; 15; 7] |> maxProfitOne;;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let maxProfitTwo lst =
+    let mutable prev = List.head lst
+    let mutable min = prev
+    lst |> List.fold (fun acc x -> match x with 
+                                   | x when x >= prev -> prev <- x ; acc 
+                                   | x when x < prev -> let a = prev - min; 
+                                                        min <- x; prev <- x; acc + a) 0
+
+[18; 3; 11; 10; 12; 6; 4; 2; 8; 0; 15; 7] |> maxProfitTwo;;

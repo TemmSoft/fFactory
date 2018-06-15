@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Algorithms\ChessQuize\ArrayBasedSolution.fs" />
+    <Compile Include="Algorithms\ChessQuize\ChessPieceMoves.fs" />
+    <Compile Include="Algorithms\StockMarket\StockTrends.fs" />
     <Compile Include="Library.fs" />
     <Compile Include="PatternMatching.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.5.0" />
+    <PackageReference Update="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

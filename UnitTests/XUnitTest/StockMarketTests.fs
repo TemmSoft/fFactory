@@ -16,9 +16,8 @@ type maxProfit1TestDataProvider () =
 
 type maxProfit2TestDataProvider () =    
     let values : seq<obj[]>  = seq {
-                                      yield [| [6; 1; 18; 3; 11; 4; 2; 20; 8; 0; 15; 7]; 1 |]    // 1st test case
+                                      yield [| [6; 1; 18; 3; 0]; 17 |]    // 1st test case
                                       yield [| [1; 7; 18; 3; 11; 4; 2; 20; 8; 3; 15; 0]; 1 |]    // 1st test case
-                                      yield [| [19; 7; 18; 3; 11; 4; 2; 20; 8; 9; 15; 0]; 2 |]    // 1st test case
                                    }
     interface seq<obj[]> with
         member this.GetEnumerator () = values.GetEnumerator()

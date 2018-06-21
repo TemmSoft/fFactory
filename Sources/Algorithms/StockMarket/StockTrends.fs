@@ -66,7 +66,9 @@ let maxProfit3 verb l =
             | 0 -> printf "It's impossible to find two bargains! \n\n"
             | _ -> printf "maxProfit of two bargain: %i \n\n" (res |> List.max)
 
-[18; 2; 6; 9; 7; 3; 11; 10; 12; 6; 8; 9; 5; 17; 4; 13; 8; 0; 11; 7] |> maxProfit3 true
+
+[18; 2; 6; 9; 7; 3; 11; 10; 12; 6; 19; 8; 9; 5; 17; 4; 13; 8; 6; 11; 7] |> maxProfit3 true
+
 [1] |> maxProfit3 true
 [1;2] |> maxProfit3 true
 [] |> maxProfit3 true

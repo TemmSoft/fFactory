@@ -6,11 +6,11 @@ open Xunit
 
 type maxProfit1TestDataProvider () =    
     let values : seq<obj[]>  = seq {
-                                      yield [| List<int>.Empty; (0, 0) |]                                // 1st test case
-                                      yield [| [1]; (0, 0) |]                               // 2nd test case
-                                      yield [| [11; 7]; (0, 0) |]                           // 3rd test case
+                                      yield [| List<int>.Empty; (0, 0) |]
+                                      yield [| [1]; (0, 0) |]
+                                      yield [| [11; 7]; (0, 0) |]
                                       yield [| [5; 9; 2; 5; 7]; (2, 7) |] 
-                                      yield [| [19; 2; 7; 3; 20; 4; 1; 18]; (2, 20) |]      // 4th test case
+                                      yield [| [19; 2; 7; 3; 20; 4; 1; 18]; (2, 20) |]
                                    }
     interface seq<obj[]> with
         member this.GetEnumerator () = values.GetEnumerator()

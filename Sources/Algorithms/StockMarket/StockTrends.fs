@@ -9,17 +9,30 @@ open System
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// MaxProfit 1: Find the highest possible profit on whole interval with only one buy-sell transaction.
+//  MaxProfit 1
+//
+//  Find the highest possible profit on whole interval with only one buy-sell transaction.
+//  The function returns interval with the largest profit 
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let maxProfit1 (lst:List<int>) =
+let maxProfit1Acc (lst:List<int>) =
     let mutable res = (0,0)
-    let mutable min = lst.Head
-    lst |> List.iter (function 
-                        | x when x < min -> min <- x 
-                        | x when (x - min) > (snd res) - (fst res) -> res <- (min, x) 
-                        | _ -> ())
+    if not lst.IsEmpty then
+        let mutable min = lst.Head
+        lst |> List.iter (function 
+                            | x when x < min -> min <- x 
+                            | x when (x - min) > (snd res) - (fst res) -> res <- (min, x) 
+                            | _ -> ())
     res
+
+let maxProfit1Rec = function
+    | head::tail -> let rec f min res = function
+                        | h::t when h < min -> t |> f h res 
+                        | h::t -> t |> f min (if h - min > snd res - fst res then (min, h) else res)
+                        | [] -> res
+                    tail |> f head (0, 0)
+    | [] -> (0,0)
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

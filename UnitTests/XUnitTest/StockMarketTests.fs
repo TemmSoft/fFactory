@@ -6,9 +6,11 @@ open Xunit
 
 type maxProfit1TestDataProvider () =    
     let values : seq<obj[]>  = seq {
-                                      yield [| [6; 1; 18; 3; 11; 4; 2; 20; 8; 0; 15; 7]; (1, 20) |]    // 1st test case
-                                      yield [| [1; 7; 18; 3; 11; 4; 2; 20; 8; 3; 15; 0]; (1, 20) |]    // 1st test case
-                                      yield [| [19; 7; 18; 3; 11; 4; 2; 20; 8; 9; 15; 0]; (2, 20) |]    // 1st test case
+                                      yield [| List<int>.Empty; (0, 0) |]                                // 1st test case
+                                      yield [| [1]; (0, 0) |]                               // 2nd test case
+                                      yield [| [11; 7]; (0, 0) |]                           // 3rd test case
+                                      yield [| [5; 9; 2; 5; 7]; (2, 7) |] 
+                                      yield [| [19; 2; 7; 3; 20; 4; 1; 18]; (2, 20) |]      // 4th test case
                                    }
     interface seq<obj[]> with
         member this.GetEnumerator () = values.GetEnumerator()
@@ -30,8 +32,13 @@ type maxProfit2TestDataProvider () =
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 [<Theory>]
 [<ClassData(typeof<maxProfit1TestDataProvider>)>]
-let ``MaxProfit 1`` (actual, expected) =
-    Assert.Equal<int * int> (actual |> maxProfit1 , expected)
+let MaxProfit1AccUnitTest(actual, expected) =
+    Assert.Equal(actual |> maxProfit1Acc , expected)
+
+[<Theory>]
+[<ClassData(typeof<maxProfit1TestDataProvider>)>]
+let MaxProfit1RecUnitTest(actual, expected) =
+    Assert.Equal(actual |> maxProfit1Rec , expected)
  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

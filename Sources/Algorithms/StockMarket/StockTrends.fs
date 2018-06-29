@@ -15,7 +15,7 @@ open System
 //  The function returns interval with the largest profit 
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let maxProfit1Acc (lst:List<int>) =
+let maxProfit1Iter (lst:List<int>) =
     let mutable res = (0,0)
     if not lst.IsEmpty then
         let mutable min = lst.Head

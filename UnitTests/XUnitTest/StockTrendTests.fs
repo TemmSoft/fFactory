@@ -32,7 +32,7 @@ type maxProfit2TestDataProvider () =
 [<Theory>]
 [<ClassData(typeof<maxProfit1TestDataProvider>)>]
 let MaxProfit1AccUnitTest(actual, expected) =
-    Assert.Equal(actual |> maxProfit1Acc , expected)
+    Assert.Equal(actual |> maxProfit1Iter , expected)
 
 [<Theory>]
 [<ClassData(typeof<maxProfit1TestDataProvider>)>]

@@ -43,6 +43,7 @@ let rookThreat square board =
 let queenThreat square board = 
     board |> (bishopThreat square >> rookThreat square)
 
+(*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 type accRes = { mutable resList: (int*int) list list; mutable maxLength: int; }
 let Res = { resList= [[(0,0)];[(0,0)]]; maxLength = 0; }
@@ -64,19 +65,7 @@ let rec tryPosition lst row threatF board =
         ()
 
 //tryPosition [] 0 queenThreat Board
-
-
-
-let f lst =
-    let mutable min = 0
-    let mutable res = (0,0)
-    let f = function
-        | h when h < min -> min <- h
-        | h when (h - min) > (snd res) - (fst res) -> res <- (min, h)
-        | _ -> ()
-    lst |> List.iter f
-    res
-let a = [3; 11; 4; 2; 8; 0; 15; 7] |> f;;
+*)
 
 
 let f lst =
@@ -89,6 +78,18 @@ let f lst =
     lst |> List.iter f
     res
 let a = [3; 11; 4; 2; 8; 0; 15; 7] |> f;;
+
+
+let d lst =
+    let mutable min = 0
+    let mutable res = (0,0)
+    let f = function
+        | h when h < min -> min <- h
+        | h when (h - min) > (snd res) - (fst res) -> res <- (min, h)
+        | _ -> ()
+    lst |> List.iter f
+    res
+let a1 = [3; 11; 4; 2; 8; 0; 15; 7] |> f;;
 
 
 

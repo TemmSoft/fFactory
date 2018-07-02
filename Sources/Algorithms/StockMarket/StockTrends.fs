@@ -36,9 +36,10 @@ let maxProfit1Rec = function
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// MaxProfit 2: Find the highest possible profit on whole interval with any number of buy-sell tansactions.
-//    
-// It's not allowed to buy several times before one sell and vice versa. One purchase -> one sell and the same again...
+//  MaxProfit 2: 
+//  
+//  Find the highest possible profit on whole interval with any number of buy-sell tansactions.
+//  It's not allowed to buy several times before one sell and vice versa. One purchase -> one sell and the same again...
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let maxProfit2 = function 
@@ -51,12 +52,13 @@ let maxProfit2 = function
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// MaxProfit 3: Find the highest possible profit on whole interval with only two of buy-sell tansactions. 
+//  MaxProfit 3
 //
-// It's not allowed to buy several times in a row before one sell and vice versa. One purchase -> one sell and the same again...
+//  Find the highest possible profit on whole interval with only two of buy-sell tansactions. 
+//  It's not allowed to buy several times in a row before one sell and vice versa. One purchase -> one sell and the same again...
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let maxProfit3 verb l =
+let maxProfit3 l =
     let runMax x dif1 cont (max,dif2,acc) =                         // retuns back picking up maximums
         let max' = if x >= max then x else max                      // new max extremum
         let dif' = if max-x > dif2 then max-x else dif2             // new second maximum dif
@@ -70,19 +72,20 @@ let maxProfit3 verb l =
                   t |> runMin min' dif' (runMax t.Head dif' cont)   // go to the next value
 
     match l with
-    | [] -> printf "List is empty!\h"
+    | [] -> 0
     | _  -> let (_,_,acc) = l |> runMin l.Head 0 (fun x -> x) 
-            if verb then printf "Found pairs : %A \n\n" acc
             let res = acc |> List.filter (fun x -> fst x > 0 || snd x > 0) |> List.map (fun (min,max) -> min+max)
-            match res.Length with
-            | 0 -> printf "It's impossible to find two bargains! \n\n"
-            | _ -> printf "maxProfit of two bargain: %i \n\n" (res |> List.max)
+            if res.Length <> 0 then res |> List.max else 0
+            //match res.Length with
+            //| 0 -> printf "It's impossible to find two bargains! \n\n"
+            //| _ -> printf "maxProfit of two bargain: %i \n\n" (res |> List.max)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// TODO: MaxProfit 4: Find the highest possible profit on whole interval with choosed number two of buy-sell tansactions.
+//  TODO: MaxProfit 4
 //
-// It's not allowed to buy several times in a row before one sell and vice versa. One purchase -> one sell and the same again...
+//  Find the highest possible profit on whole interval with choosed number two of buy-sell tansactions.
+//  It's not allowed to buy several times in a row before one sell and vice versa. One purchase -> one sell and the same again...
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let rec convolute prev min list = match list with 

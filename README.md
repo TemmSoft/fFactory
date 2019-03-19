@@ -1,2 +1,2 @@
-# fFactory
-F# test factory - some trainings for F#
+# FP labs
+Some trainings for FP

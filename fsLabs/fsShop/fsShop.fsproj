@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\Build\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Algorithms\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Lang\PatternMatching.fs" />
+    <Compile Include="Stock\StockTrends.fs" />
+    <Compile Include="Chess\ArrayBasedSolution.fs" />
+    <Compile Include="Chess\ChessPieceMoves.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.5.0" />
+    <PackageReference Update="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Math\" />
+  </ItemGroup>
+
+  <ItemGroup />
+
+</Project>

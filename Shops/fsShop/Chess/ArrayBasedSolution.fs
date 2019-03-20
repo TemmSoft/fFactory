@@ -1,4 +1,4 @@
-﻿module QueensTaks
+﻿module fsShop.QueensTaks
 
 open Microsoft.FSharp.Collections
 open System

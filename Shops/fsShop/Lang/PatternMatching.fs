@@ -1,4 +1,4 @@
-﻿module PatternMatching
+﻿module fsShop.PatternMatching
 
 //let buzz p = function
 //    | (a,b) -> a + b

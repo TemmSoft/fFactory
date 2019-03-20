@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Algorithms\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Lang\PatternMatching.fs" />
+    <Compile Include="Stock\StockTrends.fs" />
+    <Compile Include="Chess\ArrayBasedSolution.fs" />
+    <Compile Include="Chess\ChessPieceMoves.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Math\" />
+  </ItemGroup>
+
+</Project>

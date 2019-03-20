@@ -64,7 +64,7 @@ let maxProfit3 l =
         let dif' = if max-x > dif2 then max-x else dif2             // new second maximum dif
         cont (max',dif',(dif1,dif')::acc)                           // call prev continuation
 
-    let rec runMin min dif1 cont = function                         // goes forward picking up minimums
+    let rec runMin min dif1 cont = function                         // goes forward along price values picking up minimums
         | [] -> (0,0,[])                                            // guard close
         | h::t when t.IsEmpty -> cont (h,0,[])                      // turn around of last value
         | h::t -> let min' = if h < min then h else min             // new min extremum

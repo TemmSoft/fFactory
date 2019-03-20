@@ -1,2 +1,2 @@
 # FP labs
-Trainings for FP
+Some trainings for FP

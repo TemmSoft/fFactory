@@ -1,7 +1,7 @@
-module xUnitTests.StockTrendTests
+module fsShop.xUnitTests
 
-open fFactory.StockTrends
 open Xunit
+open fsShop.StockTrends
 
 type maxProfit1TestDataProvider () =    
     let values : seq<obj[]>  = seq {

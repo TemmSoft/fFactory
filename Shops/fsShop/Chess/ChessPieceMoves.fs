@@ -1,4 +1,4 @@
-﻿module ChessPieceMoves
+﻿module fsShop.ChessPieceMoves
 
 /// chess pieces' move functions
 /// they take square where a piece is set and check whether second square is biten by the piece

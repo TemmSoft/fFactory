@@ -28,7 +28,7 @@ namespace csShop
                         return StepForward(newMin, newDif, (x, y, acc) => StepBackward(prices[0], newDif, cont, x, y, acc), prices.Skip(1).ToList());
                 }
             }
-            return StepForward(l[0], 0, (x, y, z) => z, l.Skip(1).ToList());
+            return StepForward(l.First(), 0, (x, y, z) => z, l.Skip(1).ToList());
         }
         public static int MaxProfit3_WithListAccumulator(List<int> l)
         {

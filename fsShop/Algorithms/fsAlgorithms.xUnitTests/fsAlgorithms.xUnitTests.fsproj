@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsAsErrors />
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="StockTrendTests.fs" />
   </ItemGroup>
@@ -16,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shops\fsShop\fsShop.fsproj" />
+    <ProjectReference Include="..\fsAlgorithms\fsAlgorithms.fsproj" />
   </ItemGroup>
 
 </Project>

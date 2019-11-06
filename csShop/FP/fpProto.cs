@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace csShop.Lang
+namespace csShop.FP
 {
     public class fpProto
     {
